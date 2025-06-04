@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Email Voice Assistant</title>
+     <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+</head>
+<body>
+    <!-- Login/Signup Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Welcome Back</h2>
+                <p>Sign in to access your AI Email Assistant</p>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="Enter your password">
+                </div>
+                <button type="submit" class="login-button">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div class="dashboard">
+        <div class="header">
+            <h1>AI Email Voice Assistant</h1>
+            <p>Speak naturally to compose and send emails</p>
+        </div>
+
+        <div class="main-content">
+            <div class="display-box">
+                <div class="spoken-text-section">
+                    <div class="section-title">
+                        What You Said
+                        <span class="status-indicator status-ready" id="statusIndicator"></span>
+                    </div>
+                    <div class="text-display" id="spokenText">
+                        Click the microphone or type to get started...
+                    </div>
+                </div>
+
+                <div class="response-section">
+                    <div class="section-title">Assistant Response</div>
+                    <div class="text-display" id="responseText">
+                        Your AI assistant will respond here...
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-bar">
+                <input type="text" class="text-input" id="textInput" placeholder="Type your message or use the microphone...">
+                <button class="input-button mic-button" id="micButton" title="Start Voice Input">🎤</button>
+                <button class="input-button send-button" id="sendButton" title="Send Message">📤</button>
+            </div>
+        </div>
+    </div>
+ 
+</body>
+</html>
