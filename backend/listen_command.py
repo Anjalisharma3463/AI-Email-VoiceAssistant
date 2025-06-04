@@ -4,7 +4,7 @@ def listen():
     r = sr.Recognizer()
 
     with sr.Microphone() as source:
-        print("🎙️ Adjusting for ambient noise... Please wait")
+        print("🎙️ Adjusting for ambient noise.. Please wait")
         r.adjust_for_ambient_noise(source, duration=1)
 
         print("🎙️ Listening... (Start speaking now, max 10s)")
