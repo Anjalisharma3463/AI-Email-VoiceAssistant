@@ -19,21 +19,65 @@ SCOPES = [
 ]
 
 
+import threading
+import time
+import speech_recognition as sr
+
 class GmailAuth:
+    def __init__(self):
+        self.wake_word = "ok google"
+        self.is_listening = False
+
+    def start_background_listener(self):
+        print("🎧 Background listener started.")
+        self.is_listening = True
+
+        def background_loop():
+            r = sr.Recognizer()
+            while self.is_listening:
+                with sr.Microphone() as source:
+                    print("👂 Waiting for wake word...")
+                    try:
+                        audio = r.listen(source, timeout=5, phrase_time_limit=4)
+                        command = r.recognize_google(audio).lower()
+                        print("🎤 Detected:", command)
+
+                        if self.wake_word in command:
+                            print("✅ Wake word detected.")
+                            self.speak("I'm listening.")
+                            user_command = self.listen()  # This does actual recording
+                            print("🧠 Processing:", user_command)
+                            return user_command
+
+                    except sr.WaitTimeoutError:
+                        continue
+                    except Exception as e:
+                        print(f"⚠️ Background listener error: {e}")
+
+        thread = threading.Thread(target=background_loop, daemon=True)
+        thread.start()
+
+    def stop_background_listener(self):
+        self.is_listening = False
+        print("🛑 Background listener stopped.")
+
     def is_logged_in(self):
         print("is_logged_in called:")
-        isloggedIn = os.path.exists('token.pickle')
+        isloggedIn = os.path.exists('temp/token.pickle')
         print(f"isLoggedIn: {isloggedIn}")
         return isloggedIn
     
     def logout_user(self):
-        if os.path.exists('token.pickle'):
-            os.remove('token.pickle')
+        if os.path.exists('temp/token.pickle'):
+            os.remove('temp/token.pickle')
             print("🚪 Logged out successfully!")
             return "🚪 Logged out successfully!"
         return "⚠️ No user is logged in."
 
     
+
+
+
     def speak(text):
         print("🗣️ Speaking:", text)
         engine = pyttsx3.init()
